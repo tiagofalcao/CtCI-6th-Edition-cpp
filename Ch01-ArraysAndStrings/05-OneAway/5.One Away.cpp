@@ -22,12 +22,37 @@
  *    string.
  */
 
+#include<string>
+#include<iostream>
+#include<cmath>
+using namespace std;
 
-
-#include <iostream>
-#include <string>
-#include <cmath>
-
+bool isOneAway(string s1, string s2){
+	string a,b;
+	a = s1.length() >= s2.length() ? s1 : s2;
+	b = s1.length() < s2.length() ? s1 : s2;
+	int len1, len2;
+	len1 = a.length();
+	len2 = b.length();
+	if(abs(len1-len2)>1)
+		return false;
+	
+	bool flag = false;
+	for(int i=0,j=0;i<len1 && j<len2;){
+		if(a[i]!=b[j]){
+			if(flag)
+				return false;
+			flag = true;
+			if(len1 == len2)
+				i++,j++;
+			else
+				i++;
+		}
+		else
+			i++,j++;
+	}
+	return true;
+}
 
 bool oneEditAway( const std::string & str1, const std::string & str2 )
 {
@@ -60,23 +85,13 @@ bool oneEditAway( const std::string & str1, const std::string & str2 )
     return true;
 }
 
-
-void translate( bool result, const std::string str1, const std::string str2 )
-{
-    if (result == true ) {
-        std::cout << str1 << " and " << str2 << " are one edit away\n";
-    } else {
-        std::cout << str1 << " and " << str2 << " are not one edit away\n";
-    }
-}
-
-int main()
-{
-    translate ( oneEditAway("pale", "ple"), "pale", "ple" );
-    translate ( oneEditAway("pales", "pale"), "pales", "pale" );
-    translate ( oneEditAway("pale", "pales"), "pale", "pales" );
-    translate ( oneEditAway("pale", "bale"), "pale", "bale" );
-    translate ( oneEditAway("pale", "bake"), "pale", "bake" );
-    return 0;
-
+int main(void){
+	string s1,s2;
+	getline(cin,s1);
+	getline(cin,s2);
+	if(isOneAway(s1,s2))
+		cout<<"One edit away."<<endl;
+	else
+		cout<<"Not one edit away."<<endl;
+	return 0;
 }
