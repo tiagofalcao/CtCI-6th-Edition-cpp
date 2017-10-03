@@ -14,4 +14,9 @@ enable_testing()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
+find_package(benchmark)
+if(TARGET benchmark::benchmark)
+    set(BENCHMARK_LIBRARIES benchmark::benchmark)
+endif()
+
 add_subdirectory(Ch01-ArraysAndStrings)
